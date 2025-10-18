@@ -16,9 +16,9 @@
 </p>
 
 <p align="center">
-  <a href="README.zh-CN.md"><img src="https://img.shields.io/badge/简体中文-brightgreen.svg" alt="简体中文"></a>
+  <a href="README.CN.md"><img src="https://img.shields.io/badge/简体中文-brightgreen.svg" alt="简体中文"></a>
   <a href="README.md"><img src="https://img.shields.io/badge/English-blue.svg" alt="English"></a>
-  <a href="README.de.md"><img src="https://img.shields.io/badge/Deutsch-orange.svg" alt="Deutsch"></a>
+  <a href="README.DE.md"><img src="https://img.shields.io/badge/Deutsch-orange.svg" alt="Deutsch"></a>
 </p>
 
 A simple, versatile, and out-of-the-box GitHub Actions workflow for automatically building any OpenWrt package. This project offers two build modes: **SDK Mode (Recommended)** and **Source Mode**, catering to different needs.

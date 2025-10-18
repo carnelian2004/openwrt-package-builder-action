@@ -16,9 +16,9 @@
 </p>
 
 <p align="center">
-  <a href="README.zh-CN.md"><img src="https://img.shields.io/badge/简体中文-brightgreen.svg" alt="简体中文"></a>
+  <a href="README.CN.md"><img src="https://img.shields.io/badge/简体中文-brightgreen.svg" alt="简体中文"></a>
   <a href="README.md"><img src="https://img.shields.io/badge/English-blue.svg" alt="English"></a>
-  <a href="README.de.md"><img src="https://img.shields.io/badge/Deutsch-orange.svg" alt="Deutsch"></a>
+  <a href="README.DE.md"><img src="https://img.shields.io/badge/Deutsch-orange.svg" alt="Deutsch"></a>
 </p>
 
 Ein einfacher, vielseitiger und sofort einsatzbereiter GitHub Actions Workflow zur automatischen Kompilierung von OpenWrt-Paketen. Dieses Projekt bietet zwei Kompilierungsmodi, um unterschiedlichen Anforderungen gerecht zu werden: **SDK-Modus (Empfohlen)** und **Quellcode-Modus**.

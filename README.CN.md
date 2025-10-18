@@ -16,9 +16,9 @@
 </p>
 
 <p align="center">
-  <a href="README.zh-CN.md"><img src="https://img.shields.io/badge/简体中文-brightgreen.svg" alt="简体中文"></a>
+  <a href="README.CN.md"><img src="https://img.shields.io/badge/简体中文-brightgreen.svg" alt="简体中文"></a>
   <a href="README.md"><img src="https://img.shields.io/badge/English-blue.svg" alt="English"></a>
-  <a href="README.de.md"><img src="https://img.shields.io/badge/Deutsch-orange.svg" alt="Deutsch"></a>
+  <a href="README.DE.md"><img src="https://img.shields.io/badge/Deutsch-orange.svg" alt="Deutsch"></a>
 </p>
 
 一个简单、通用且开箱即用的 GitHub Actions 工作流，用于自动编译任何 OpenWrt 软件包。本项目提供了两种编译模式：**SDK 模式（推荐）** 和 **源码模式**，以满足不同需求。
