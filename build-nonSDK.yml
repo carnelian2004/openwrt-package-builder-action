@@ -167,6 +167,8 @@ jobs:
     # 依赖于所有软件包编译任务成功完成
     needs: build_package
     if: success()
+    permissions:
+      contents: write
     steps:
       - name: Post comment
         uses: peter-evans/commit-comment@v3
