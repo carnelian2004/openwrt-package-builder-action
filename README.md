@@ -1,45 +1,92 @@
 # OpenWrt Package Builder
 
+<p align="center">
+  <a href="https://github.com/features/actions">
+    <img src="https://img.shields.io/badge/Powered%20by-GitHub%20Actions-blue?logo=github-actions" alt="Powered by GitHub Actions">
+  </a>
+  <a href="https://github.com/Tokisaki-Galaxy/openwrt-package-builder-action/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
+  </a>
+  <a href="https://github.com/Tokisaki-Galaxy/openwrt-package-builder-action/issues">
+    <img src="https://img.shields.io/github/issues/Tokisaki-Galaxy/openwrt-package-builder-action" alt="GitHub issues">
+  </a>
+   <a href="https://github.com/Tokisaki-Galaxy/openwrt-package-builder-action/stargazers">
+    <img src="https://img.shields.io/github/stars/Tokisaki-Galaxy/openwrt-package-builder-action" alt="GitHub stars">
+  </a>
+</p>
 
-一个简单、通用且开箱即用的 GitHub Actions 工作流，用于自动编译任何 OpenWrt 软件包（包括 LuCI 应用）。
+<p align="center">
+  <a href="README.zh-CN.md"><img src="https://img.shields.io/badge/简体中文-brightgreen.svg" alt="简体中文"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/English-blue.svg" alt="English"></a>
+  <a href="README.de.md"><img src="https://img.shields.io/badge/Deutsch-orange.svg" alt="Deutsch"></a>
+</p>
 
-你只需要将你的软件包源码放在仓库中，复制一份工作流文件，修改两个变量，即可为多个目标架构自动编译出 `.ipk` 文件。
+A simple, versatile, and out-of-the-box GitHub Actions workflow for automatically building any OpenWrt package. This project offers two build modes: **SDK Mode (Recommended)** and **Source Mode**, catering to different needs.
 
-## ✨ 特性
+You just need to place your package source code in the repository, choose a workflow file, modify two variables, and it will automatically compile `.ipk` files for multiple target architectures.
 
--   **🚀 简单易用**: 只需复制粘贴工作流文件，修改两个环境变量即可开始使用。
--   **⚙️ 高度通用**: 可用于编译任何类型的 OpenWrt 软件包，不仅仅是 LuCI 应用。
--   **🎯 多目标编译**: 默认配置为 `x86_64`, `armv8`, `mips_mt7621` 三个常用架构，可轻松自定义。
--   **⚡️ 高效缓存**: 智能缓存 OpenWrt 编译环境，显著加快后续构建速度。
--   **📦 自动发布**: 编译成功后，自动将 `.ipk` 文件上传为构建产物 (Artifacts)，方便下载。
--   **💬 提交评论**: (可选) 所有构建任务成功后，会在对应的 Commit 下自动发表评论，提供产物下载链接。
+## ✨ Features
 
-## 🚀 如何使用
+-   **🚀 Easy to Use**: Just copy-paste the workflow file and modify two environment variables to get started.
+-   **⚡️ Extremely Fast Builds (SDK Mode)**: Utilizes official pre-compiled SDKs to reduce build time from 30+ minutes to under 5 minutes.
+-   **💡 Flexible & Powerful (Source Mode)**: Capable of building any package, including kernel modules, and supports development branches like `master`.
+-   **⚙️ Highly Versatile**: Can be used to compile any type of OpenWrt package, such as LuCI applications, command-line tools, or kernel modules.
+-   **🎯 Multi-Target Compilation**: Pre-configured for popular architectures like `x86_64`, `armv8`, and `mips_mt7621`, and easily customizable.
+-   **📦 Automatic Artifacts**: Upon successful compilation, `.ipk` files are automatically uploaded as build artifacts for easy download.
+-   **💬 Commit Comments**: (Optional) After all build jobs succeed, a comment is automatically posted on the corresponding commit with a link to the artifacts.
 
-#### 步骤 1: 创建工作流文件
+## 🤔 Which Build Mode Should I Choose?
 
-在你的软件包仓库根目录下，创建一个名为 `.github/workflows/build.yml` 的文件。
+This project provides two workflows. Please choose one based on your needs.
 
-#### 步骤 2: 复制工作流代码
+| Feature / Scenario | ✅ SDK Mode (Recommended) | ⚠️ Source Mode |
+| :--- | :--- | :--- |
+| **Build Speed** | **Extremely fast** (usually <  10mins) | Slow (first build > 40 mins, faster with cache) |
+| **Suitable Package Types** | Most **LuCI apps** and **regular packages** | **All packages**, especially **kernel modules (`kmod-xxx`)** |
+| **Supported OpenWrt Versions** | Only **official stable releases** (e.g., `v23.05.3`) | **All versions**, including the `master` development branch |
+| **Workflow File** | `build-with-sdk.yml` | `build-from-source.yml` |
 
-将本仓库下的build.yml代码复制过去。
+**In short: If you're unsure, or you're just building a LuCI application, choose the `SDK Mode`.**
 
+## 🚀 How to Use
 
-#### 步骤 3: 修改配置
+#### Example
 
-打开 `build.yml` 文件，你只需要修改 `env` 部分的 **两个** 变量：
+If you need a reference, you can check out this [example repository](https://github.com/Tokisaki-Galaxy/luci-app-tailscale-community/.github/workflows/build.yml).
+
+#### Step 1: Choose and Create the Workflow File
+
+Based on your choice above, create the corresponding `.github/workflows/` directory and YAML file in your repository's root.
+
+*   **For SDK Mode**: Create `.github/workflows/build.yml`
+*   **For Source Mode**: Create `.github/workflows/build-nonSDK.yml`
+
+#### Step 2: Copy the Workflow Code
+
+Copy the complete code from the corresponding file in this repository.
+
+*   ➡️ [**Code for `build-with-sdk.yml`**](build.yml)
+*   ➡️ [**Code for `build-from-source.yml`**](build-nonSDK.yml)
+
+#### Step 3: Modify the Configuration
+
+Open the YAML file you created. You only need to modify **two** variables in the `env` section:
 
 1.  **`PACKAGE_NAME`**:
-    将其值修改为你的软件包的目录名。**非常重要**，这个名字必须和你的软件包在仓库中的文件夹名称完全一致。
+    Change its value to your package's directory name. **This is crucial** and must exactly match the folder name of your package in the repository.
 
 2.  **`OPENWRT_VERSION`**:
-    设置你想要基于哪个 OpenWrt 版本进行编译。可以是稳定的标签（如 `v23.05.3`），也可以是开发分支（如 `master`）。
+    Set the OpenWrt version you want to build against.
+    *   **For SDK Mode**: This **must** be an official release tag, e.g., `v23.05.3`.
+    *   **For Source Mode**: This can be any tag or branch name, e.g., `v23.05.3` or `master`.
 
-#### 步骤 4: 检查 Makefile (重要)
+> **Tip:** Don't forget to update the badge links at the top of your `README.md`! Replace `Tokisaki-Galaxy/openwrt-package-builder-action` with your own repository name.
 
-确保你的软件包目录下的 `Makefile` 文件中正确定义了所有依赖项。本工作流依赖 `make defconfig` 来自动解析并选中这些依赖。
+#### Step 4: Check Your Makefile (Important)
 
-例如:
+Ensure that your package's `Makefile` correctly defines all dependencies. This workflow relies on `make defconfig` to automatically resolve and select them.
+
+For example:
 ```makefile
 define Package/my-cool-package
   # ...
@@ -47,24 +94,26 @@ define Package/my-cool-package
 endef
 ```
 
-#### 步骤 5: 提交并运行
+#### Step 5: Commit and Run
 
-将你的代码和 `.github/workflows/build.yml` 文件提交并推送到 GitHub。GitHub Actions 会自动开始运行。
+Commit your code and the new workflow YAML file to GitHub. GitHub Actions will start running automatically.
 
-你可以在仓库的 `Actions` 标签页查看编译进度。编译完成后，可以在对应的运行记录页面找到并下载 `Artifacts`。
+You can view the build progress in the `Actions` tab of your repository. Once completed, you can find and download the `Artifacts` from the corresponding run page.
 
-## 🔧 自定义
+## 🔧 Customization
 
-### 修改编译目标
+### Customizing Build Targets
 
-如果你需要为其他架构编译，可以修改 `jobs.build.strategy.matrix.target` 部分。只需按照现有格式添加或修改条目即可。你可以在 OpenWrt 源码的 `target/linux/` 目录下找到所有可用的 `target` 和 `subtarget`。
+If you need to build for other architectures, modify the `jobs.build.strategy.matrix.target` section in the workflow file. Simply add or edit entries following the existing format.
 
-### 修改触发条件
+> **Note**: The `matrix` structure is slightly different between the two modes. Please refer to the format in each respective file.
 
-你可以修改文件顶部的 `on` 部分来更改触发工作流的条件，例如改为 `pull_request` 或定时运行 (`schedule`)。
+### Customizing Triggers
+
+You can change the `on` section at the top of the file to modify what triggers the workflow, such as running on `pull_request` or on a `schedule`.
 
 ---
 
-## 协议
+## License
 
-本项目使用 [MIT License](LICENSE) 授权。
+This project is licensed under the [MIT License](LICENSE).
