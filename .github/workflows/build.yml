@@ -1,0 +1,5 @@
+env:
+  # 1. 设置你要编译的软件包名称
+  PACKAGE_NAME: qmodem
+  # 2. 设置要编译的 OpenWrt 版本，用 ImmortalWrt 25.12 的标签
+  OPENWRT_VERSION: v25.12.0-rc2
